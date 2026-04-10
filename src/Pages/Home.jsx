@@ -36,7 +36,7 @@ const Home = () => {
         { label: 'Text to Video', img: textToVideoV2 },
         { label: 'Text to Audio', img: textToAudioPreview },
         { label: 'Copyright Checker', img: copyrightCheckerV2 },
-        { label: 'Copyright Changer', img: copyrightChangerPreview },
+        { label: 'SORA AI', img: copyrightChangerPreview },
         { label: 'AI SEO Planner', img: aiSeoPlannerPreview },
         { label: 'Watermark Remover', img: watermarkRemoverV4 },
     ];
@@ -90,6 +90,18 @@ const Home = () => {
                             <div key={idx} className={`${idx % 2 !== 0 ? 'lg:translate-y-6' : ''}`}>
                                 {tool.title === 'Text to Video' ? (
                                     <Link to="/text-to-video" className="block w-full">
+                                        <ToolCard tool={tool} />
+                                    </Link>
+                                ) : tool.title === 'Watermark Remover' ? (
+                                    <Link to="/watermark-remover" className="block w-full">
+                                        <ToolCard tool={tool} />
+                                    </Link>
+                                ) : tool.title === 'Text to Image' ? (
+                                    <Link to="/text-to-image" className="block w-full">
+                                        <ToolCard tool={tool} />
+                                    </Link>
+                                ) : tool.title === 'Copyright Checker' ? (
+                                    <Link to="/copyright" className="block w-full">
                                         <ToolCard tool={tool} />
                                     </Link>
                                 ) : (
@@ -163,6 +175,26 @@ const Home = () => {
                                     </Link>
                                 ) : tag.label === 'Text to Audio' ? (
                                     <Link to="/text-to-audio" className="block">
+                                        <TagButton tag={tag} hoveredTag={hoveredTag} setHoveredTag={setHoveredTag} />
+                                    </Link>
+                                ) : tag.label === 'Watermark Remover' ? (
+                                    <Link to="/watermark-remover" className="block">
+                                        <TagButton tag={tag} hoveredTag={hoveredTag} setHoveredTag={setHoveredTag} />
+                                    </Link>
+                                ) : tag.label === 'Text to Image' ? (
+                                    <Link to="/text-to-image" className="block">
+                                        <TagButton tag={tag} hoveredTag={hoveredTag} setHoveredTag={setHoveredTag} />
+                                    </Link>
+                                ) : tag.label === 'Copyright Checker' || tag.label === 'Copyright Changer' ? (
+                                    <Link to="/copyright" className="block">
+                                        <TagButton tag={tag} hoveredTag={hoveredTag} setHoveredTag={setHoveredTag} />
+                                    </Link>
+                                ) : tag.label === 'AI SEO Planner' ? (
+                                    <Link to="/seo-planner" className="block">
+                                        <TagButton tag={tag} hoveredTag={hoveredTag} setHoveredTag={setHoveredTag} />
+                                    </Link>
+                                ) : tag.label === 'SORA AI' ? (
+                                    <Link to="/sora-ai" className="block">
                                         <TagButton tag={tag} hoveredTag={hoveredTag} setHoveredTag={setHoveredTag} />
                                     </Link>
                                 ) : (

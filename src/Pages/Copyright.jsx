@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import "./Copyright.css";
+import { useNavigate } from "react-router-dom";
 
 /* ─── Icons ─── */
 const BackIcon = () => (
@@ -8,10 +8,11 @@ const BackIcon = () => (
     height="19"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="white"
+    stroke="currentColor"
     strokeWidth="2.5"
     strokeLinecap="round"
     strokeLinejoin="round"
+    className="text-[#e8f0ff]"
   >
     <polyline points="15 18 9 12 15 6" />
   </svg>
@@ -86,9 +87,9 @@ const DownloadIcon = () => (
 );
 
 const ShieldIcon = () => (
-  <div className="cc-shield-container">
+  <div className="relative w-[72px] h-[72px] flex items-center justify-center animate-[ccShieldPop_0.55s_cubic-bezier(0.34,1.56,0.64,1)_both]">
     <svg
-      className="cc-shield-svg"
+      className="w-[62px] h-[70px] drop-shadow-[0_0_16px_rgba(34,197,94,0.6)]"
       viewBox="0 0 72 80"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +121,7 @@ const ShieldIcon = () => (
         </linearGradient>
       </defs>
     </svg>
-    <div className="cc-shield-glow" />
+    <div className="absolute inset-[-8px] rounded-full bg-radial-gradient from-[rgba(34,197,94,0.2)] to-transparent animate-[ccGlowPulse_2.4s_ease-in-out_infinite]" />
   </div>
 );
 
@@ -132,7 +133,7 @@ const RESULT_IMG =
 
 /* ─── Component ─── */
 export default function Copyright() {
-  // "idle" | "loading" | "safe" | "changed"
+  const navigate = useNavigate();
   const [imagePreview, setImagePreview] = useState(null);
   const [status, setStatus] = useState("idle");
   const [progress, setProgress] = useState(0);
@@ -160,7 +161,7 @@ export default function Copyright() {
   const handleFileChange = (e) => {
     const f = e.target.files?.[0];
     if (f) {
-      setImagePreview(URL.createObjectURL(f)); // ✅ store image
+      setImagePreview(URL.createObjectURL(f));
       startLoading(f.name);
     }
   };
@@ -170,7 +171,7 @@ export default function Copyright() {
     setDragOver(false);
     const f = e.dataTransfer.files?.[0];
     if (f) {
-      setImagePreview(URL.createObjectURL(f)); // ✅ store image
+      setImagePreview(URL.createObjectURL(f));
       startLoading(f.name);
     }
   };
@@ -180,109 +181,121 @@ export default function Copyright() {
     setProgress(0);
     setLink("");
     setFileName("");
-    setImagePreview(null); // ✅ reset image
+    setImagePreview(null);
     if (fileRef.current) fileRef.current.value = "";
   };
+
   const handleDownload = async () => {
     try {
       const imgSrc = imagePreview || RESULT_IMG;
       if (!imgSrc) return;
-
       const response = await fetch(imgSrc);
       const blob = await response.blob();
-
       const url = window.URL.createObjectURL(blob);
-
       const a = document.createElement("a");
       a.href = url;
       a.download = "copyright-checked.png";
       document.body.appendChild(a);
       a.click();
-
       a.remove();
       window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error("Download failed:", error);
     }
   };
+
   return (
-    <div className="cc-root">
+    <div className="relative w-full min-h-screen flex flex-col font-['Nunito',sans-serif] overflow-hidden bg-[url('/bg-image.png')] bg-no-repeat bg-center bg-cover bg-fixed">
+      <style>{`
+        @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap");
+        @keyframes ccFadeUp {
+          from { opacity: 0; transform: translateY(16px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes ccShimmer {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(300%); }
+        }
+        @keyframes ccShieldPop {
+          from { opacity: 0; transform: scale(0.5); }
+          to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes ccGlowPulse {
+          0%, 100% { transform: scale(1); opacity: 0.8; }
+          50% { transform: scale(1.35); opacity: 0.25; }
+        }
+        @keyframes ccGrowBar {
+          from { width: 0%; }
+          to { width: 100%; }
+        }
+        .animate-ccFadeUp { animation: ccFadeUp 0.4s ease both; }
+        .animate-ccShimmer { animation: ccShimmer 1.6s ease-in-out infinite; }
+        .animate-ccGrowBar { animation: ccGrowBar 0.8s ease both; }
+      `}</style>
+
       {/* Background layers */}
-      <div className="cc-bg-base" />
-      <div className="cc-wave-lines" />
-      <div className="cc-dot-grid" />
-      <div className="cc-glow-left" />
-      <div className="cc-glow-center" />
+      <div className="fixed inset-0 z-0 bg-[url('/bg-image.png')] bg-no-repeat bg-center bg-cover" />
+      <div className="fixed bottom-0 right-0 w-[45%] h-[55%] bg-[radial-gradient(circle,rgba(80,130,255,0.28)_1.1px,transparent_1.1px)] bg-[size:16px_16px] z-0 pointer-events-none" />
+      <div className="fixed left-[-80px] bottom-[80px] w-[360px] h-[360px] bg-[radial-gradient(circle,rgba(20,80,220,0.14)_0%,transparent_70%)] blur-[50px] z-0 pointer-events-none" />
+      <div className="fixed left-[16%] bottom-[10%] w-[260px] h-[200px] bg-[radial-gradient(circle,rgba(120,40,200,0.18)_0%,transparent_70%)] blur-[55px] z-0 pointer-events-none" />
 
-      <div className="cc-page">
+      <div className="relative z-10 w-full flex flex-col min-h-screen animate-ccFadeUp">
         {/* ── NAVBAR ── */}
-        <div className="cc-navbar">
-          <button className="cc-back-btn" onClick={handleBack}>
+        <header className="flex items-center gap-[10px] px-6 py-3 border-b border-[#4f8fff]/15 backdrop-blur-md bg-[#060d1f]/45">
+          <div onClick={() => navigate(-1)} className="cursor-pointer hover:scale-110 active:scale-90 transition-transform">
             <BackIcon />
-          </button>
-          <h1 className="cc-title">Copyright Checker</h1>
-        </div>
+          </div>
+          <span className="font-bold text-lg md:text-xl tracking-tight text-[#e8f0ff]">Copyright Checker</span>
+        </header>
 
-        {/* ── COLUMNS ── */}
-        <div className="cc-columns">
+        {/* ── MAIN CONTENT ── */}
+        <div className="flex-1 flex flex-col md:flex-row gap-6 px-5 md:px-[60px] py-4 items-start overflow-y-auto">
           {/* ════ LEFT CARD ════ */}
-          <div className="cc-card">
-            <p className="cc-card-heading">Upload your content</p>
+          <div className="w-full md:w-[300px] bg-white/10 border border-[#4664c3]/20 rounded-[18px] p-5 backdrop-blur-[20px] shadow-2xl shrink-0">
+            <p className="font-bold text-[0.9rem] text-white/90 mb-3 tracking-tight">Upload your content</p>
 
             {/* Drop Zone */}
             <div
-              className={`cc-dropzone${dragOver ? " cc-dz-over" : ""}${status === "loading" ? " cc-dz-loading" : ""}`}
+              className={`border-1.5 border-dashed rounded-xl bg-[#121e4b]/32 flex flex-col items-center justify-center gap-[8px] p-5 cursor-pointer transition-all relative ${
+                dragOver ? "border-[#6e91ff] bg-[#233a8c]/38 shadow-[0_0_18px_rgba(80,120,255,0.1)]" : "border-[#5069c8]/42 hover:bg-[#233a8c]/38 hover:border-[#6e91ff]/55"
+              } ${status === "loading" ? "opacity-75 cursor-wait" : ""}`}
               onClick={() => status !== "loading" && fileRef.current?.click()}
-              onDragOver={(e) => {
-                e.preventDefault();
-                setDragOver(true);
-              }}
+              onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
               onDragLeave={() => setDragOver(false)}
               onDrop={handleDrop}
-              tabIndex={0}
-              role="button"
             >
-              <input
-                ref={fileRef}
-                type="file"
-                hidden
-                onChange={handleFileChange}
-              />
-              <span className="cc-upload-icon">
+              <input ref={fileRef} type="file" hidden onChange={handleFileChange} />
+              <div className="flex items-center justify-center w-[58px] h-[58px] rounded-full bg-[#19329b]/32">
                 <UploadIcon />
-              </span>
-              <span className="cc-dz-label">
+              </div>
+              <span className="text-sm text-white/50 text-center tracking-tight">
                 {fileName ? fileName : "Drag & drop file here"}
               </span>
             </div>
 
             {/* OR */}
-            <div className="cc-or-row">
-              <span className="cc-or-line" />
-              <span className="cc-or-word">or</span>
-              <span className="cc-or-line" />
+            <div className="flex items-center gap-3 my-4">
+              <div className="flex-1 h-px bg-[#4664be]/18" />
+              <span className="text-[0.72rem] text-white/30 tracking-widest uppercase">or</span>
+              <div className="flex-1 h-px bg-[#4664be]/18" />
             </div>
 
             {/* Link input */}
-            <div className="cc-link-box">
-              <span className="cc-link-icon">
-                <LinkIcon />
-              </span>
+            <div className="flex items-center gap-2 bg-[#0c163c]/60 border border-[#415fb9]/20 rounded-xl px-3 py-2.5 focus-within:border-[#5a87ff]/42 transition-all">
+              <LinkIcon />
               <input
-                className="cc-link-field"
+                className="bg-transparent border-none outline-none text-sm text-white/85 w-full placeholder:text-white/30"
                 placeholder="Paste link here..."
                 value={link}
                 onChange={(e) => setLink(e.target.value)}
-                onKeyDown={(e) =>
-                  e.key === "Enter" && link.trim() && startLoading()
-                }
+                onKeyDown={(e) => e.key === "Enter" && link.trim() && startLoading()}
               />
             </div>
 
             {/* CTA Button */}
-            <div className="cc-btn-wrap">
+            <div className="flex justify-center mt-6">
               <button
-                className="cc-change-btn"
+                className="w-full py-3 border-none rounded-full bg-gradient-to-r from-[#c23ee8] to-[#e03d8a] text-white text-[15px] font-bold cursor-pointer tracking-wider shadow-[0_4px_20px_rgba(190,55,200,0.4)] transition-all hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-45 disabled:cursor-not-allowed"
                 onClick={() => {
                   if (status === "idle") startLoading();
                   else if (status === "safe") setStatus("changed");
@@ -295,135 +308,101 @@ export default function Copyright() {
             </div>
 
             {/* Preview */}
-            <div className="cc-preview">
-              <img
-                src={imagePreview || PREVIEW_IMG}
-                alt="preview"
-                className="cc-preview-img"
-              />
-              <div className="cc-preview-badge">Preview</div>
+            <div className="relative mt-6 rounded-xl overflow-hidden aspect-video border border-[#3c5ab0]/16 shadow-lg">
+              <img src={imagePreview || PREVIEW_IMG} alt="preview" className="w-full h-full object-cover brightness-75" />
+              <div className="absolute inset-0 flex items-center justify-center text-lg font-bold text-white tracking-widest bg-black/20">Preview</div>
             </div>
           </div>
 
           {/* ════ RIGHT PANEL ════ */}
-          <div className="cc-right-panel">
+          <div className="flex-1 min-h-[400px] flex items-center justify-center">
             {/* IDLE */}
             {status === "idle" && (
-              <div className="cc-state cc-idle-state">
-                <svg
-                  width="52"
-                  height="58"
-                  viewBox="0 0 72 80"
-                  fill="none"
-                  className="cc-idle-shield"
-                >
-                  <path
-                    d="M36 4L6 16v22c0 15.9 12.4 30.8 30 34 17.6-3.2 30-18.1 30-34V16L36 4z"
-                    fill="rgba(80,100,200,0.1)"
-                    stroke="rgba(120,140,255,0.25)"
-                    strokeWidth="1.5"
-                  />
+              <div className="flex flex-col items-center gap-4 text-center opacity-30 animate-ccFadeUp">
+                <svg width="60" height="60" viewBox="0 0 72 80" fill="none">
+                  <path d="M36 4L6 16v22c0 15.9 12.4 30.8 30 34 17.6-3.2 30-18.1 30-34V16L36 4z" fill="rgba(80,100,200,0.1)" stroke="rgba(120,140,255,0.25)" strokeWidth="1.5" />
                 </svg>
-                <p className="cc-idle-hint">
-                  Upload a file or paste a link
-                  <br />
-                  to check for copyright issues
-                </p>
+                <p className="text-lg text-[#7a90bb] leading-relaxed">Upload a file or paste a link<br />to check for copyright issues</p>
               </div>
             )}
 
             {/* LOADING */}
             {status === "loading" && (
-              <div className="cc-state cc-loading-state">
-                <div className="cc-loader-group">
-                  <div className="cc-loader-track">
-                    <div
-                      className="cc-loader-bar"
-                      style={{ width: `${progress}%` }}
-                    />
-                  </div>
-                  <span className="cc-loading-txt">Loading.</span>
+              <div className="w-full flex flex-col items-center gap-4 text-center animate-ccFadeUp">
+                <div className="w-full max-w-md h-1.5 bg-[#4b5fa0]/20 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-[#4f8fff] to-[#00d4ff] shadow-[0_0_14px_#00d4ff] animate-bar" style={{ width: `${progress}%` }} />
                 </div>
+                <span className="text-sm font-medium text-[#7a90bb] tracking-widest uppercase">Analyzing Content...</span>
               </div>
             )}
 
-            {/* SAFE — No copyright issues */}
+            {/* SAFE */}
             {status === "safe" && (
-              <div className="cc-state cc-safe-state">
+              <div className="w-full flex flex-col items-center gap-6 text-center animate-ccFadeUp">
                 <ShieldIcon />
-                <h2 className="cc-result-title">No copyright issues found</h2>
-                <p className="cc-result-sub">
-                  Your content appears to be original
-                </p>
-
-                {/* Green progress bar */}
-                <div className="cc-progress-row">
-                  <div className="cc-progress-track">
-                    <div className="cc-progress-fill cc-fill-green" />
-                  </div>
-                  <span className="cc-progress-pct">100%</span>
+                <div>
+                  <h2 className="text-3xl font-extrabold text-white tracking-tight mb-2">No copyright issues found</h2>
+                  <p className="text-lg text-[#7a90bb]">Your content appears to be original</p>
                 </div>
 
-                {/* Buttons */}
-                <div className="cc-action-row">
-                  <button className="cc-btn-download" onClick={handleDownload}>
+                <div className="flex items-center gap-4 w-full max-w-md bg-white/5 p-4 rounded-xl border border-white/5">
+                  <div className="flex-1 h-2 bg-[#465aa0]/18 rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-[#22c55e] to-[#16a34a] shadow-[0_0_14px_rgba(34,197,94,0.65)] animate-ccGrowBar" />
+                  </div>
+                  <span className="text-lg font-bold text-[#22c55e]">100%</span>
+                </div>
+
+                <div className="flex gap-4">
+                  <button className="flex items-center gap-2 px-8 py-3 bg-[#101c42]/90 border border-[#4664be]/25 rounded-xl text-white font-bold transition-all hover:bg-[#1e3278]/80 hover:border-[#648cff]/40" onClick={handleDownload}>
                     <DownloadIcon /> Download
                   </button>
-                  <button
-                    className="cc-btn-regenerate"
-                    onClick={() => setStatus("changed")}
-                  >
+                  <button className="px-8 py-3 border-none rounded-xl bg-gradient-to-r from-[#c23ee8] to-[#e03d8a] text-white font-bold shadow-[0_4px_20px_rgba(190,55,200,0.38)] transition-all hover:opacity-90 hover:-translate-y-0.5" onClick={() => setStatus("changed")}>
                     Regenerate
                   </button>
                 </div>
 
-                {/* Features */}
-                <ul className="cc-features">
-                  <li>Fast Copyright scan</li>
-                  <li>AI similarity detection</li>
-                  <li>Safe for creation</li>
-                </ul>
+                <div className="flex flex-col items-start gap-2 pt-4">
+                  {["Fast Copyright scan", "AI similarity detection", "Safe for creation"].map((f, i) => (
+                    <div key={i} className="flex items-center gap-3 text-sm font-medium text-[#8a9fc0]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#00d4ff] shadow-[0_0_7px_#00d4ff]" />
+                      {f}
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
 
-            {/* CHANGED — Copyright Removed */}
+            {/* CHANGED */}
             {status === "changed" && (
-              <div className="cc-state cc-changed-state">
-                <p className="cc-changed-label">Copyright Removed</p>
+              <div className="w-full flex flex-col items-start gap-4 animate-ccFadeUp">
+                <p className="text-xs font-bold text-[#7a90bb] tracking-[0.2em] uppercase">Copyright Removed</p>
 
-                <div className="cc-result-img-wrap">
-                  <img
-                    src={imagePreview || RESULT_IMG}
-                    alt="result"
-                    className="cc-result-img"
-                  />
+                <div className="w-full rounded-[20px] overflow-hidden border border-[#4f8fff]/25 shadow-2xl">
+                  <img src={imagePreview || RESULT_IMG} alt="result" className="w-full h-[400px] object-cover" />
                 </div>
 
-                <div className="cc-action-row">
-                  <button className="cc-btn-download">
+                <div className="flex gap-4 w-full pt-2">
+                  <button className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-[#101c42]/90 border border-[#4f8fff]/25 rounded-xl text-white font-bold transition-all hover:bg-[#1e3278]/80" onClick={handleDownload}>
                     <DownloadIcon /> Download
                   </button>
-                  <button
-                    className="cc-btn-regenerate"
-                    onClick={() => setStatus("safe")}
-                  >
+                  <button className="flex-1 py-3.5 bg-gradient-to-r from-[#c23ee8] to-[#e03d8a] border-none rounded-xl text-white font-bold shadow-lg transition-all hover:opacity-90" onClick={() => setStatus("safe")}>
                     Regenerate
                   </button>
                 </div>
 
-                <ul className="cc-features">
-                  <li>AI copyright changer</li>
-                  <li>Fast copyright processing</li>
-                  <li>Safe for creation</li>
-                </ul>
+                <div className="grid grid-cols-3 gap-8 w-full mt-4 p-6 bg-white/5 rounded-2xl border border-white/5">
+                  {["AI copyright changer", "Fast processing", "Safe creation"].map((f, i) => (
+                    <div key={i} className="flex flex-col gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#00d4ff] shadow-[0_0_7px_#00d4ff]" />
+                      <span className="text-xs font-bold text-[#e8f0ff] uppercase tracking-wider">{f}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>
-          {/* /cc-right-panel */}
         </div>
-        {/* /cc-columns */}
       </div>
-      {/* /cc-page */}
     </div>
   );
 }
