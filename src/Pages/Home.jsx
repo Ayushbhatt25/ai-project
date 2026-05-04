@@ -50,34 +50,34 @@ const Home = () => {
             ></div>
 
             {/* Main Hero Section */}
-            <div className="relative min-h-screen pt-16 pb-20 px-8 lg:px-12 z-10">
-                <div className="max-w-full grid lg:grid-cols-[0.7fr_1.3fr] gap-12 lg:gap-16 items-start pt-5">
+            <div className="relative min-h-screen pt-24 md:pt-16 pb-20 px-6 md:px-8 lg:px-12 z-10">
+                <div className="max-w-full grid grid-cols-1 lg:grid-cols-[0.7fr_1.3fr] gap-12 lg:gap-16 items-start pt-5">
                     {/* Left Column: Text & CTA */}
                     <div className="flex flex-col gap-6 relative text-left pt-0 pl-0">
                         <div className="flex flex-col gap-2 relative">
                             {/* AI Halo Effect */}
                             <div className="absolute -top-12 -left-12 w-48 h-48 bg-purple-600/20 blur-[80px] rounded-full pointer-events-none animate-pulse"></div>
 
-                            <h1 className="text-3xl md:text-3xl lg:text-3xl font-bold leading-[1.02] tracking-[-0.04em] text-white mb-0 z-10 whitespace-nowrap">
+                            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.1] tracking-[-0.04em] text-white mb-0 z-10">
                                 <span className="relative inline-block">
                                     AI
                                     <div className="absolute -inset-6 bg-purple-600/30 rounded-full blur-2xl -z-10"></div>
                                 </span> Creative & Copyright
                             </h1>
-                            <h2 className="text-3xl md:text-3xl lg:text-3xl font-medium bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent leading-[1.1] tracking-[-0.04em] py-1 z-10 whitespace-nowrap">
+                            <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent leading-[1.2] tracking-[-0.04em] py-1 z-10">
                                 Intelligence Platform
                             </h2>
                         </div>
 
                         <p className="text-base text-white/50 leading-relaxed max-w-xl z-10 font-normal">
-                            Empower your content creation and copyright management with advanced AI .
+                            Empower your content creation and copyright management with advanced AI.
                         </p>
 
-                        <div className="flex flex-row items-center gap-4 mt-0.5 z-10 justify-start whitespace-nowrap">
-                            <button className="min-w-[152px] px-8 py-4 rounded-full bg-gradient-to-r from-[#d946ef] to-blue-500 font-medium text-base hover:scale-105 transition-all shadow-[0_0_40px_rgba(217,70,239,0.4)] text-white">
+                        <div className="flex flex-row items-center gap-4 mt-2 z-10 justify-start">
+                            <button className="px-8 py-4 rounded-full bg-gradient-to-r from-[#d946ef] to-blue-500 font-medium text-sm md:text-base hover:scale-105 transition-all shadow-[0_0_40px_rgba(217,70,239,0.4)] text-white whitespace-nowrap">
                                 Start Free Trial
                             </button>
-                            <button className="min-w-[152px] px-8 py-4 rounded-full bg-white/5 border border-white/10 backdrop-blur-md font-medium text-base hover:bg-white/15 transition-all text-white/60 border-white/20">
+                            <button className="px-8 py-4 rounded-full bg-white/5 border border-white/10 backdrop-blur-md font-medium text-sm md:text-base hover:bg-white/15 transition-all text-white/60 border-white/20 whitespace-nowrap">
                                 View Pricing
                             </button>
                         </div>
@@ -85,9 +85,12 @@ const Home = () => {
 
 
                     {/* Right Column: Staggered Grid of Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative lg:mt-0 max-w-[550px] lg:ml-auto">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative lg:mt-0 max-w-[550px] lg:ml-auto w-full">
                         {tools.map((tool, idx) => (
-                            <div key={idx} className={`${idx % 2 !== 0 ? 'lg:translate-y-6' : ''}`}>
+                            <div key={idx} className={`${
+                                idx === 1 ? 'lg:translate-y-6' :
+                                idx === 3 ? 'lg:translate-y-16' : ''
+                            }`}>
                                 {tool.title === 'Text to Video' ? (
                                     <Link to="/text-to-video" className="block w-full">
                                         <ToolCard tool={tool} />
@@ -113,9 +116,8 @@ const Home = () => {
                 </div>
 
 
-                {/* Stats Section: Modern Horizontal Row */}
-                <div className="relative z-10 max-w-full mt-16 pt-0 ml-40">
-                    <div className="flex flex-wrap items-center justify-start gap-16 lg:gap-32">
+                <div className="relative z-10 w-full mt-32 mb-24 py-10 flex justify-center items-center">
+                    <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-6 md:gap-10 lg:gap-14">
                         {/* 5,000+ Creators */}
                         <div className="flex items-center gap-4 group">
                             <div className="relative w-8 h-8 flex items-center justify-center">
@@ -165,8 +167,8 @@ const Home = () => {
                 </div>
 
                 {/* Bottom Section: Categories & Dynamic Preview */}
-                <div className="relative z-10 max-w-[1850px] mx-auto px-4 mt-20 grid lg:grid-cols-[1.2fr_0.8fr] gap-16 items-center">
-                    <div className="flex flex-wrap gap-4 max-w-3xl">
+                <div className="relative z-10 max-w-[1850px] mx-auto px-4 mt-20 grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
+                    <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center lg:justify-start gap-4 max-w-3xl">
                         {tags.map((tag, idx) => (
                             <div key={idx}>
                                 {tag.label === 'Text to Video' ? (
@@ -204,24 +206,35 @@ const Home = () => {
                         ))}
                     </div>
 
-                    {/* Tool Preview Card - Clean & Interactive */}
-                    <div className="relative w-full max-w-[500px] ml-auto group -mt-10">
-                        <div className="relative w-full aspect-[16/10] rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 backdrop-blur-sm bg-white/[0.02]">
+                    {/* Tool Preview Card - Premium Neon Glow */}
+                    <div className="relative w-full max-w-[500px] lg:ml-auto group lg:-mt-10 mx-auto">
+                        {/* Animated outer glow ring */}
+                        <div className="absolute -inset-[2px] rounded-[2.1rem] bg-gradient-to-br from-purple-500 via-blue-500 to-pink-500 opacity-60 blur-sm group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
+                        <div className="relative w-full aspect-[16/10] rounded-[2rem] overflow-hidden shadow-[0_20px_80px_rgba(139,92,246,0.4)] border border-white/20 backdrop-blur-sm bg-black/40">
                             <img
                                 src={hoveredTag ? hoveredTag.img : textToImageV2}
-                                className="w-full h-full object-cover transition-all duration-700 ease-in-out scale-100 group-hover:scale-105"
+                                className="w-full h-full object-cover transition-all duration-700 ease-in-out scale-100 group-hover:scale-110 brightness-90 group-hover:brightness-100"
                                 alt="Preview"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                            {/* Accent Glow */}
-                            <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-purple-500/10 blur-[60px] rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+                            {/* Corner Accents */}
+                            <div className="absolute top-3 left-3 w-5 h-5 border-t-2 border-l-2 border-purple-400/80 rounded-tl-lg" />
+                            <div className="absolute top-3 right-3 w-5 h-5 border-t-2 border-r-2 border-blue-400/80 rounded-tr-lg" />
+                            <div className="absolute bottom-3 left-3 w-5 h-5 border-b-2 border-l-2 border-pink-400/80 rounded-bl-lg" />
+                            <div className="absolute bottom-3 right-3 w-5 h-5 border-b-2 border-r-2 border-purple-400/80 rounded-br-lg" />
+                            {/* Bottom label */}
+                            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-white/70 text-xs font-semibold tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                {hoveredTag ? hoveredTag.label : 'Text to Image'}
+                            </div>
+                            {/* Shimmer sweep on hover */}
+                            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] duration-1000" />
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Global Styles */}
-            <style jsx>{`
+            <style>{`
                 @keyframes pulse {
                     0%, 100% { opacity: 0.2; transform: scale(1); }
                     50% { opacity: 0.3; transform: scale(1.1); }
@@ -239,40 +252,65 @@ const Home = () => {
 };
 
 const ToolCard = ({ tool }) => (
-    <div className="group relative rounded-[1.2rem] overflow-hidden border border-white/10 backdrop-blur-2xl bg-[#ffffff02] p-1.5 transition-all hover:border-white/30 hover:bg-white/10 shadow-2xl w-full h-full">
-        <p className="text-white/80 text-[0.8rem] font-medium mb-1.5 ml-3 tracking-tight text-center">{tool.title}</p>
-        <div className="rounded-[1rem] overflow-hidden aspect-video relative border border-white/5 bg-black/40">
-            <img src={tool.img} alt={tool.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out opacity-90 group-hover:opacity-100" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+    <div className="group relative rounded-[1.4rem] overflow-hidden p-[1.5px] w-full h-full shadow-[0_8px_40px_rgba(0,0,0,0.6)] transition-all duration-500 hover:shadow-[0_12px_60px_rgba(139,92,246,0.5)] hover:-translate-y-1">
+        {/* Animated gradient border */}
+        <div className="absolute inset-0 rounded-[1.4rem] bg-gradient-to-br from-purple-600/60 via-blue-500/30 to-pink-500/40 opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="relative rounded-[1.3rem] overflow-hidden bg-[#080d24] backdrop-blur-2xl h-full">
+            {/* Header */}
+            <div className="flex items-center justify-between px-3 pt-2.5 pb-1.5">
+                <p className="text-white/80 text-[0.75rem] font-semibold tracking-tight">{tool.title}</p>
+                <div className="flex gap-1">
+                    <span className="w-2 h-2 rounded-full bg-red-500/80" />
+                    <span className="w-2 h-2 rounded-full bg-yellow-400/80" />
+                    <span className="w-2 h-2 rounded-full bg-green-400/80" />
+                </div>
+            </div>
+            {/* Image */}
+            <div className="rounded-[0.9rem] overflow-hidden aspect-video relative border border-white/5 mx-1.5 mb-1.5">
+                <img src={tool.img} alt={tool.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out brightness-80 group-hover:brightness-100" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                {/* Neon bottom edge glow */}
+                <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </div>
+            {/* Inner shimmer on hover */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none bg-gradient-to-br from-white/5 via-transparent to-transparent rounded-[1.3rem]" />
         </div>
     </div>
 );
 
-const TagButton = ({ tag, hoveredTag, setHoveredTag }) => (
-    <div className="relative w-[172px] h-[82px] rounded-[1.2rem] overflow-hidden group/border transition-all duration-500 hover:scale-110 hover:-translate-y-2">
-        {/* Layer 1: Rotating Magenta Border Layer (Hidden on hover) */}
-        <div className={`absolute inset-[-200%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_0deg,#d946ef,transparent_30%,transparent_100%)] transition-opacity duration-300 ${hoveredTag?.label === tag.label ? 'opacity-0' : 'opacity-100'}`}></div>
+const TagButton = ({ tag, hoveredTag, setHoveredTag }) => {
+    const isActive = hoveredTag?.label === tag.label;
+    return (
+        <div className={`relative w-[172px] h-[82px] rounded-[1.2rem] overflow-hidden group/border transition-all duration-500 hover:scale-110 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(139,92,246,0.5)] ${isActive ? 'shadow-[0_8px_30px_rgba(139,92,246,0.6)]' : ''}`}>
+            {/* Layer 1: Multi-color rotating conic gradient border */}
+            <div className={`absolute inset-[-200%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_0deg,#d946ef_0%,#3b82f6_25%,#06b6d4_50%,#d946ef_75%,transparent_80%,transparent_100%)] transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-70'}`} />
 
-        {/* Layer 2: Inner Glass Cutout - Hollowing out the center */}
-        <div className={`absolute inset-[1px] rounded-[1.1rem] backdrop-blur-xl transition-all duration-500 z-0
-            ${hoveredTag?.label === tag.label
-                ? 'bg-purple-600/30'
-                : 'bg-white/[0.05]'
-            }`}
-        ></div>
+            {/* Layer 2: Inner Glass */}
+            <div className={`absolute inset-[1.5px] rounded-[1.05rem] backdrop-blur-xl transition-all duration-500 z-0 border border-white/5
+                ${isActive
+                    ? 'bg-gradient-to-br from-purple-700/40 to-blue-700/30'
+                    : 'bg-[#080d24]/90'
+                }`}
+            />
 
-        {/* Layer 3: Content Button */}
-        <button
-            onMouseEnter={() => setHoveredTag(tag)}
-            onMouseLeave={() => setHoveredTag(null)}
-            className="relative w-full h-full flex flex-col items-center justify-center text-sm font-semibold tracking-tight text-center leading-tight p-3 z-10 transition-colors text-white/50 hover:text-white"
-        >
-            {tag.label.split(' ').map((word, i) => <div key={i}>{word}</div>)}
-            {hoveredTag?.label === tag.label && (
-                <div className="absolute inset-0 bg-purple-500/10 blur-xl -z-10 rounded-full animate-pulse"></div>
-            )}
-        </button>
-    </div>
-);
+            {/* Layer 3: Content */}
+            <button
+                onMouseEnter={() => setHoveredTag(tag)}
+                onMouseLeave={() => setHoveredTag(null)}
+                className={`relative w-full h-full flex flex-col items-center justify-center text-sm font-semibold tracking-tight text-center leading-tight p-3 z-10 transition-colors ${
+                    isActive ? 'text-white' : 'text-white/50 hover:text-white/80'
+                }`}
+            >
+                {tag.label.split(' ').map((word, i) => <div key={i}>{word}</div>)}
+                {isActive && (
+                    <>
+                        <div className="absolute inset-0 bg-purple-500/15 blur-md -z-10 rounded-[1rem] animate-pulse" />
+                        <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-8 h-[2px] rounded-full bg-gradient-to-r from-purple-400 to-blue-400" />
+                    </>
+                )}
+            </button>
+        </div>
+    );
+};
 
 export default Home;

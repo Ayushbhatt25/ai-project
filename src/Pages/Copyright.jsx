@@ -249,14 +249,14 @@ export default function Copyright() {
         </header>
 
         {/* ── MAIN CONTENT ── */}
-        <div className="flex-1 flex flex-col md:flex-row gap-6 px-5 md:px-[60px] py-4 items-start overflow-y-auto">
+        <div className="flex-1 flex flex-col lg:flex-row gap-8 px-5 md:px-10 lg:px-[60px] py-6 items-start overflow-y-auto z-10">
           {/* ════ LEFT CARD ════ */}
-          <div className="w-full md:w-[300px] bg-white/10 border border-[#4664c3]/20 rounded-[18px] p-5 backdrop-blur-[20px] shadow-2xl shrink-0">
-            <p className="font-bold text-[0.9rem] text-white/90 mb-3 tracking-tight">Upload your content</p>
+          <div className="w-full lg:w-[320px] bg-white/10 border border-[#4664c3]/20 rounded-[24px] p-6 backdrop-blur-[20px] shadow-2xl shrink-0">
+            <p className="font-bold text-[1rem] text-white/90 mb-4 tracking-tight">Upload your content</p>
 
             {/* Drop Zone */}
             <div
-              className={`border-1.5 border-dashed rounded-xl bg-[#121e4b]/32 flex flex-col items-center justify-center gap-[8px] p-5 cursor-pointer transition-all relative ${
+              className={`border-1.5 border-dashed rounded-2xl bg-[#121e4b]/32 flex flex-col items-center justify-center gap-[10px] p-6 cursor-pointer transition-all relative ${
                 dragOver ? "border-[#6e91ff] bg-[#233a8c]/38 shadow-[0_0_18px_rgba(80,120,255,0.1)]" : "border-[#5069c8]/42 hover:bg-[#233a8c]/38 hover:border-[#6e91ff]/55"
               } ${status === "loading" ? "opacity-75 cursor-wait" : ""}`}
               onClick={() => status !== "loading" && fileRef.current?.click()}
@@ -265,23 +265,23 @@ export default function Copyright() {
               onDrop={handleDrop}
             >
               <input ref={fileRef} type="file" hidden onChange={handleFileChange} />
-              <div className="flex items-center justify-center w-[58px] h-[58px] rounded-full bg-[#19329b]/32">
+              <div className="flex items-center justify-center w-[64px] h-[64px] rounded-full bg-[#19329b]/32">
                 <UploadIcon />
               </div>
-              <span className="text-sm text-white/50 text-center tracking-tight">
-                {fileName ? fileName : "Drag & drop file here"}
+              <span className="text-sm text-white/50 text-center tracking-tight leading-relaxed">
+                {fileName ? fileName : "Drag & drop file here or click to browse"}
               </span>
             </div>
 
             {/* OR */}
-            <div className="flex items-center gap-3 my-4">
+            <div className="flex items-center gap-3 my-5">
               <div className="flex-1 h-px bg-[#4664be]/18" />
-              <span className="text-[0.72rem] text-white/30 tracking-widest uppercase">or</span>
+              <span className="text-[0.72rem] text-white/30 tracking-widest uppercase font-bold">or</span>
               <div className="flex-1 h-px bg-[#4664be]/18" />
             </div>
 
             {/* Link input */}
-            <div className="flex items-center gap-2 bg-[#0c163c]/60 border border-[#415fb9]/20 rounded-xl px-3 py-2.5 focus-within:border-[#5a87ff]/42 transition-all">
+            <div className="flex items-center gap-2 bg-[#0c163c]/60 border border-[#415fb9]/20 rounded-xl px-4 py-3 focus-within:border-[#5a87ff]/42 transition-all">
               <LinkIcon />
               <input
                 className="bg-transparent border-none outline-none text-sm text-white/85 w-full placeholder:text-white/30"
@@ -295,7 +295,7 @@ export default function Copyright() {
             {/* CTA Button */}
             <div className="flex justify-center mt-6">
               <button
-                className="w-full py-3 border-none rounded-full bg-gradient-to-r from-[#c23ee8] to-[#e03d8a] text-white text-[15px] font-bold cursor-pointer tracking-wider shadow-[0_4px_20px_rgba(190,55,200,0.4)] transition-all hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-45 disabled:cursor-not-allowed"
+                className="w-full py-4 border-none rounded-full bg-gradient-to-r from-[#c23ee8] to-[#e03d8a] text-white text-[15px] font-bold cursor-pointer tracking-wider shadow-[0_4px_20px_rgba(190,55,200,0.4)] transition-all hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-45 disabled:cursor-not-allowed uppercase"
                 onClick={() => {
                   if (status === "idle") startLoading();
                   else if (status === "safe") setStatus("changed");
@@ -315,56 +315,56 @@ export default function Copyright() {
           </div>
 
           {/* ════ RIGHT PANEL ════ */}
-          <div className="flex-1 min-h-[400px] flex items-center justify-center">
+          <div className="flex-1 min-h-[400px] w-full flex items-center justify-center py-6 lg:py-0">
             {/* IDLE */}
             {status === "idle" && (
-              <div className="flex flex-col items-center gap-4 text-center opacity-30 animate-ccFadeUp">
-                <svg width="60" height="60" viewBox="0 0 72 80" fill="none">
+              <div className="flex flex-col items-center gap-6 text-center opacity-40 animate-ccFadeUp">
+                <svg width="80" height="80" viewBox="0 0 72 80" fill="none">
                   <path d="M36 4L6 16v22c0 15.9 12.4 30.8 30 34 17.6-3.2 30-18.1 30-34V16L36 4z" fill="rgba(80,100,200,0.1)" stroke="rgba(120,140,255,0.25)" strokeWidth="1.5" />
                 </svg>
-                <p className="text-lg text-[#7a90bb] leading-relaxed">Upload a file or paste a link<br />to check for copyright issues</p>
+                <p className="text-xl text-[#7a90bb] leading-relaxed max-w-sm">Upload a file or paste a link to check for copyright issues</p>
               </div>
             )}
 
             {/* LOADING */}
             {status === "loading" && (
-              <div className="w-full flex flex-col items-center gap-4 text-center animate-ccFadeUp">
-                <div className="w-full max-w-md h-1.5 bg-[#4b5fa0]/20 rounded-full overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-[#4f8fff] to-[#00d4ff] shadow-[0_0_14px_#00d4ff] animate-bar" style={{ width: `${progress}%` }} />
+              <div className="w-full flex flex-col items-center gap-6 text-center animate-ccFadeUp">
+                <div className="w-full max-w-md h-2 bg-[#4b5fa0]/20 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-[#4f8fff] to-[#00d4ff] shadow-[0_0_14px_#00d4ff] transition-all duration-300" style={{ width: `${progress}%` }} />
                 </div>
-                <span className="text-sm font-medium text-[#7a90bb] tracking-widest uppercase">Analyzing Content...</span>
+                <span className="text-sm font-bold text-[#7a90bb] tracking-widest uppercase animate-pulse">Analyzing Content...</span>
               </div>
             )}
 
             {/* SAFE */}
             {status === "safe" && (
-              <div className="w-full flex flex-col items-center gap-6 text-center animate-ccFadeUp">
+              <div className="w-full flex flex-col items-center gap-8 text-center animate-ccFadeUp">
                 <ShieldIcon />
                 <div>
-                  <h2 className="text-3xl font-extrabold text-white tracking-tight mb-2">No copyright issues found</h2>
-                  <p className="text-lg text-[#7a90bb]">Your content appears to be original</p>
+                  <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-3">No copyright issues found</h2>
+                  <p className="text-lg text-[#7a90bb]">Your content appears to be original and safe to use</p>
                 </div>
 
-                <div className="flex items-center gap-4 w-full max-w-md bg-white/5 p-4 rounded-xl border border-white/5">
-                  <div className="flex-1 h-2 bg-[#465aa0]/18 rounded-full overflow-hidden">
+                <div className="flex items-center gap-4 w-full max-w-md bg-white/5 p-5 rounded-2xl border border-white/5">
+                  <div className="flex-1 h-2.5 bg-[#465aa0]/18 rounded-full overflow-hidden">
                     <div className="h-full bg-gradient-to-r from-[#22c55e] to-[#16a34a] shadow-[0_0_14px_rgba(34,197,94,0.65)] animate-ccGrowBar" />
                   </div>
-                  <span className="text-lg font-bold text-[#22c55e]">100%</span>
+                  <span className="text-xl font-bold text-[#22c55e]">100%</span>
                 </div>
 
-                <div className="flex gap-4">
-                  <button className="flex items-center gap-2 px-8 py-3 bg-[#101c42]/90 border border-[#4664be]/25 rounded-xl text-white font-bold transition-all hover:bg-[#1e3278]/80 hover:border-[#648cff]/40" onClick={handleDownload}>
+                <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md">
+                  <button className="flex-1 flex items-center justify-center gap-2 px-8 py-4 bg-[#101c42]/90 border border-[#4664be]/25 rounded-2xl text-white font-bold transition-all hover:bg-[#1e3278]/80 hover:border-[#648cff]/40 shadow-lg" onClick={handleDownload}>
                     <DownloadIcon /> Download
                   </button>
-                  <button className="px-8 py-3 border-none rounded-xl bg-gradient-to-r from-[#c23ee8] to-[#e03d8a] text-white font-bold shadow-[0_4px_20px_rgba(190,55,200,0.38)] transition-all hover:opacity-90 hover:-translate-y-0.5" onClick={() => setStatus("changed")}>
+                  <button className="flex-1 px-8 py-4 border-none rounded-2xl bg-gradient-to-r from-[#c23ee8] to-[#e03d8a] text-white font-bold shadow-[0_4px_20px_rgba(190,55,200,0.38)] transition-all hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0" onClick={() => setStatus("changed")}>
                     Regenerate
                   </button>
                 </div>
 
-                <div className="flex flex-col items-start gap-2 pt-4">
+                <div className="flex flex-wrap justify-center gap-x-8 gap-y-3 pt-4">
                   {["Fast Copyright scan", "AI similarity detection", "Safe for creation"].map((f, i) => (
-                    <div key={i} className="flex items-center gap-3 text-sm font-medium text-[#8a9fc0]">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#00d4ff] shadow-[0_0_7px_#00d4ff]" />
+                    <div key={i} className="flex items-center gap-2 text-sm font-semibold text-[#8a9fc0]">
+                      <span className="w-2 h-2 rounded-full bg-[#00d4ff] shadow-[0_0_7px_#00d4ff]" />
                       {f}
                     </div>
                   ))}
@@ -374,27 +374,28 @@ export default function Copyright() {
 
             {/* CHANGED */}
             {status === "changed" && (
-              <div className="w-full flex flex-col items-start gap-4 animate-ccFadeUp">
-                <p className="text-xs font-bold text-[#7a90bb] tracking-[0.2em] uppercase">Copyright Removed</p>
+              <div className="w-full max-w-2xl flex flex-col items-start gap-5 animate-ccFadeUp">
+                <p className="text-xs font-black text-[#7a90bb] tracking-[0.25em] uppercase">Copyright Removed Successfully</p>
 
-                <div className="w-full rounded-[20px] overflow-hidden border border-[#4f8fff]/25 shadow-2xl">
-                  <img src={imagePreview || RESULT_IMG} alt="result" className="w-full h-[400px] object-cover" />
+                <div className="w-full rounded-[24px] overflow-hidden border border-[#4f8fff]/25 shadow-[0_20px_60px_rgba(0,0,0,0.4)] group relative">
+                  <img src={imagePreview || RESULT_IMG} alt="result" className="w-full h-[300px] md:h-[450px] object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
                 </div>
 
-                <div className="flex gap-4 w-full pt-2">
-                  <button className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-[#101c42]/90 border border-[#4f8fff]/25 rounded-xl text-white font-bold transition-all hover:bg-[#1e3278]/80" onClick={handleDownload}>
-                    <DownloadIcon /> Download
+                <div className="flex flex-col sm:flex-row gap-4 w-full pt-2">
+                  <button className="flex-1 flex items-center justify-center gap-2 py-4 bg-[#101c42]/90 border border-[#4f8fff]/25 rounded-2xl text-white font-bold transition-all hover:bg-[#1e3278]/80 shadow-lg" onClick={handleDownload}>
+                    <DownloadIcon /> Download Result
                   </button>
-                  <button className="flex-1 py-3.5 bg-gradient-to-r from-[#c23ee8] to-[#e03d8a] border-none rounded-xl text-white font-bold shadow-lg transition-all hover:opacity-90" onClick={() => setStatus("safe")}>
-                    Regenerate
+                  <button className="flex-1 py-4 bg-gradient-to-r from-[#c23ee8] to-[#e03d8a] border-none rounded-2xl text-white font-bold shadow-[0_4px_20px_rgba(190,55,200,0.38)] transition-all hover:opacity-90 active:scale-95" onClick={() => setStatus("safe")}>
+                    Regenerate AI
                   </button>
                 </div>
 
-                <div className="grid grid-cols-3 gap-8 w-full mt-4 p-6 bg-white/5 rounded-2xl border border-white/5">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full mt-4 p-6 bg-white/5 rounded-[24px] border border-white/5 backdrop-blur-sm">
                   {["AI copyright changer", "Fast processing", "Safe creation"].map((f, i) => (
-                    <div key={i} className="flex flex-col gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#00d4ff] shadow-[0_0_7px_#00d4ff]" />
-                      <span className="text-xs font-bold text-[#e8f0ff] uppercase tracking-wider">{f}</span>
+                    <div key={i} className="flex flex-row sm:flex-col gap-3 sm:gap-2 items-center sm:items-start">
+                      <span className="w-2 h-2 rounded-full bg-[#00d4ff] shadow-[0_0_7px_#00d4ff] shrink-0" />
+                      <span className="text-[10px] md:text-xs font-black text-[#e8f0ff] uppercase tracking-widest">{f}</span>
                     </div>
                   ))}
                 </div>

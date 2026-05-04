@@ -14,7 +14,7 @@ import Copyright from './Pages/Copyright'
 import Seoplanner from './Pages/Seoplanner'
 import SignUp from './Pages/SignUp'
 import PricingPage from './Pages/Pricingpage'
-import SoraAI from './Pages/SoraAI'
+import SoraAI from './Pages/SoraAI.jsx'
 import Navbar from './components/Navbar'
 
 function App() {

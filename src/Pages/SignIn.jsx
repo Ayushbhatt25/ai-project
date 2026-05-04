@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import bgImg from "../assets/bg.png";
 
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -8,14 +9,34 @@ export default function SignIn() {
   const navigate = useNavigate();
 
   return (
-    <div className="fixed inset-0 flex justify-center items-center bg-[#050b2d] bg-[url('/bg-image.png')] bg-cover bg-center font-['Poppins',sans-serif] overflow-y-auto pt-20 pb-8">
-      
+    <div className="relative w-full min-h-screen flex flex-col font-['Poppins',sans-serif] overflow-x-hidden bg-[#050b2d] text-white">
+      {/* 🔥 NAVBAR/BACK BAR */}
+      <header className="flex items-center gap-[10px] px-6 py-4 border-b border-[#4f8fff]/15 backdrop-blur-md bg-[#060d1f]/45 shrink-0 z-50">
+        <div 
+          className="cursor-pointer hover:scale-110 active:scale-90 transition-transform" 
+          onClick={() => navigate(-1)}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </div>
+        <span className="font-bold text-lg md:text-xl tracking-tight text-[#e8f0ff]">Sign In</span>
+      </header>
+
+      {/* Main Content Area */}
+      <div className="flex-1 flex justify-center items-center py-12 px-4 relative overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div 
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${bgImg})` }}
+        />
+        <div className="absolute inset-0 z-0 bg-[#020617]/40 backdrop-blur-[2px]" />
       {/* Background Glows */}
       <div className="absolute top-[-100px] right-[-100px] w-[400px] h-[400px] rounded-full bg-purple-600/10 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-100px] left-[-100px] w-[400px] h-[400px] rounded-full bg-blue-500/10 blur-[120px] pointer-events-none" />
 
       {/* Glass card */}
-      <div className="relative w-full max-w-[460px] mx-4 px-10 py-12 rounded-[32px] flex flex-col gap-7
+      <div className="relative w-full max-w-[480px] mx-4 px-10 py-12 rounded-[32px] flex flex-col gap-7
         bg-gradient-to-br from-white/[0.07] to-white/[0.01]
         backdrop-blur-[15px]
         border border-white/[0.15]
@@ -104,6 +125,7 @@ export default function SignIn() {
             Sign Up Now
           </button>
         </p>
+      </div>
       </div>
     </div>
   );

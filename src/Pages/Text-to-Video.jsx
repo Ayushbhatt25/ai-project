@@ -43,16 +43,16 @@ function TextVideo() {
   ];
 
   return (
-    <div className="w-full h-screen flex flex-col font-sans bg-[url('/bg-image.png')] bg-no-repeat bg-center bg-cover bg-fixed overflow-hidden">
+    <div className="w-full min-h-screen flex flex-col font-sans bg-[url('/bg-image.png')] bg-no-repeat bg-center bg-cover bg-fixed overflow-x-hidden">
       {/* 🔥 NAVBAR */}
-      <header className="flex items-center gap-[10px] px-6 py-3 border-b border-[#4f8fff]/15 backdrop-blur-md bg-[#060d1f]/45 shrink-0 z-50">
+      <header className="flex items-center gap-[10px] px-6 py-4 border-b border-[#4f8fff]/15 backdrop-blur-md bg-[#060d1f]/45 shrink-0 z-50">
         <div 
           className="cursor-pointer hover:scale-110 active:scale-90 transition-transform" 
           onClick={() => navigate(-1)}
         >
           <svg
-            width="19"
-            height="19"
+            width="20"
+            height="20"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -68,16 +68,16 @@ function TextVideo() {
       </header>
 
       {/* 🔥 CONTENT */}
-      <div className="flex-1 flex items-start md:items-center md:pl-[120px] md:pr-0 md:justify-start justify-center p-5 pt-8 md:pt-10 relative overflow-y-auto">
-        <div className="w-full max-w-[380px] p-6 md:p-7 rounded-[20px] flex flex-col gap-[14px] bg-white/10 border border-white/10 text-white shadow-2xl transition-all hover:bg-white/[0.12]">
+      <div className="flex-1 flex items-center justify-center lg:justify-start px-6 md:px-12 lg:pl-[120px] py-10 relative overflow-y-auto">
+        <div className="w-full max-w-[420px] p-6 md:p-8 rounded-[24px] flex flex-col gap-5 bg-white/10 border border-white/10 text-white shadow-2xl backdrop-blur-md transition-all hover:bg-white/[0.12]">
           <h2 className="text-xl md:text-2xl font-semibold text-white/90">Prompt</h2>
 
           <textarea 
             placeholder="Describe the video you want..." 
-            className="w-full h-[100px] rounded-[18px] p-4 text-sm text-white bg-white/5 border border-white/10 outline-none resize-none placeholder:text-white/20 focus:border-white/20 focus:bg-white/10 transition-all font-sans"
+            className="w-full h-[120px] rounded-[18px] p-4 text-sm text-white bg-white/5 border border-white/10 outline-none resize-none placeholder:text-white/20 focus:border-white/20 focus:bg-white/10 transition-all font-sans"
           />
 
-          <div className="flex flex-wrap gap-2.5">
+          <div className="flex flex-wrap gap-2">
             {styles.map((style) => (
               <button
                 key={style}
@@ -95,12 +95,12 @@ function TextVideo() {
 
           <div className="mt-2">
             <h4 className="text-[15px] font-medium text-white/70 mb-2">Explore Ideas</h4>
-            <p className={`text-sm text-[#cbd5e1] min-h-[40px] transition-all duration-400 font-medium ${fade ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1"}`}>
+            <p className={`text-sm text-[#cbd5e1] min-h-[48px] transition-all duration-400 font-medium ${fade ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1"}`}>
               {currentIdea}
             </p>
           </div>
 
-          <button className="w-[160px] md:w-[180px] h-10 md:h-10 mx-auto mt-4 rounded-full border-none bg-gradient-to-r from-[#d946ef] to-[#3b82f6] text-white text-sm font-bold cursor-pointer flex items-center justify-center hover:opacity-90 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] active:scale-95 transition-all uppercase tracking-wide">
+          <button className="w-full sm:w-[180px] h-12 mx-auto mt-2 rounded-full border-none bg-gradient-to-r from-[#d946ef] to-[#3b82f6] text-white text-sm font-bold cursor-pointer flex items-center justify-center hover:opacity-90 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] active:scale-95 transition-all uppercase tracking-wide">
             Generate
           </button>
         </div>
